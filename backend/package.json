@@ -1,0 +1,16 @@
+{
+  "name": "expense-tracker-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend API for expense tracker",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.2.2"
+  }
+}
