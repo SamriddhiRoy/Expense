@@ -13,7 +13,8 @@ export function ExpenseForm({ onAdded }) {
     const data = new FormData(e.target);
     const idempotencyKey = uuid();
 
-    const API_URL = import.meta.env.VITE_API_URL || '';
+    // Remove trailing slash from API URL if present
+    const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
     try {
       const response = await fetch(`${API_URL}/expenses`, {

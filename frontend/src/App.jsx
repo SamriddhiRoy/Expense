@@ -10,7 +10,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || '';
+  // Remove trailing slash from API URL if present
+  const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
   const fetchExpenses = async () => {
     const params = new URLSearchParams();
