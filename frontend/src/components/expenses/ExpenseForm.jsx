@@ -13,8 +13,10 @@ export function ExpenseForm({ onAdded }) {
     const data = new FormData(e.target);
     const idempotencyKey = uuid();
 
+    const API_URL = import.meta.env.VITE_API_URL || '';
+
     try {
-      const response = await fetch('/expenses', {
+      const response = await fetch(`${API_URL}/expenses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

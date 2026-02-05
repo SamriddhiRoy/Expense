@@ -11,6 +11,21 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.json());
 
+// CORS middleware - allow requests from frontend
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  // Allow requests from Vercel deployments or localhost
+  if (origin && (origin.includes('vercel.app') || origin.includes('localhost'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 const db = new Database('expenses.db');
 
 // Initialize database schema

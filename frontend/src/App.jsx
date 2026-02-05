@@ -10,6 +10,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || '';
+
   const fetchExpenses = async () => {
     const params = new URLSearchParams();
     if (categoryFilter) {
@@ -22,7 +24,7 @@ function App() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`/expenses?${params.toString()}`);
+      const response = await fetch(`${API_URL}/expenses?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to load expenses');
       }
@@ -38,7 +40,7 @@ function App() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/expenses');
+      const response = await fetch(`${API_URL}/expenses`);
       if (!response.ok) {
         throw new Error('Failed to load categories');
       }
