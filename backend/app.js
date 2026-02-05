@@ -14,8 +14,12 @@ app.use(express.json());
 // CORS middleware - allow requests from frontend
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  // Allow requests from Vercel deployments or localhost
-  if (origin && (origin.includes('vercel.app') || origin.includes('localhost'))) {
+  // Allow requests from Vercel deployments, Render, or localhost
+  if (origin && (
+    origin.includes('vercel.app') || 
+    origin.includes('localhost') ||
+    origin.includes('127.0.0.1')
+  )) {
     res.header('Access-Control-Allow-Origin', origin);
   }
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -37,4 +41,5 @@ const expensesRoutes = createExpenseRoutes(db);
 app.post('/expenses', expensesRoutes.post);
 app.get('/expenses', expensesRoutes.get);
 
-app.listen(3000, () => console.log('API running on :3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`API running on :${PORT}`));
